@@ -51,4 +51,17 @@ class Rietveld
     @log.info("Next cursor is #{response.body['cursor']}")
     return response.body['cursor']
   end
+
+  def issue(issue)
+    @log.info("Issue with #{issue}")
+    response = get_connection.get "/api/#{issue}", {
+        :messages => true
+    }
+
+    if response.status == 200
+      return response.body.to_json
+    else
+      raise "Server Error #{response.status}" #=> ServerError:
+    end
+  end
 end
