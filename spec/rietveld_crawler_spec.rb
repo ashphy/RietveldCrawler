@@ -8,14 +8,26 @@ describe RietveldCrawler do
       end
 
       it do
-        IDList.should_receive(:new).once.ordered
-        Issues.should_receive(:new).once.ordered
+        id_list = double('IDList')
+        id_list.should_receive(:crawl).once.ordered
+        IDList.stub(:new).and_return(id_list)
+
+        issues = double('issues')
+        issues.should_receive(:crawl).once.ordered
+        Issues.stub(:new).and_return(issues)
+
         RietveldCrawler.new(nil).start(RietveldCrawler::Status::ID)
       end
 
       it do
-        IDList.should_not_receive(:new)
-        Issues.should_receive(:new).once.ordered
+        id_list = double('IDList')
+        id_list.should_not_receive(:crawl)
+        IDList.stub(:new).and_return(id_list)
+
+        issues = double('issues')
+        issues.should_receive(:crawl).once.ordered
+        Issues.stub(:new).and_return(issues)
+
         RietveldCrawler.new(nil).start(RietveldCrawler::Status::ISSUE)
       end
     end

@@ -6,14 +6,9 @@
 require 'yaml'
 require 'fileutils'
 require 'optparse'
-require 'logger'
 
 require_relative 'id_list'
 require_relative 'issues'
-
-# Logger
-log = Logger.new(STDOUT)
-log.level = Logger::DEBUG
 
 class RietveldCrawler
 
@@ -32,8 +27,8 @@ class RietveldCrawler
   end
 
   def start(start_from)
-    IDList.new(@conf) if start_from <= Status::ID
-    Issues.new(@conf) if start_from <= Status::ISSUE
+    IDList.new.crawl(@conf) if start_from <= Status::ID
+    Issues.new.crawl(@conf) if start_from <= Status::ISSUE
   end
 
 end

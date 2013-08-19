@@ -1,3 +1,4 @@
+require 'log4r'
 require 'faraday'
 require 'faraday_middleware'
 
@@ -7,12 +8,13 @@ require_relative 'server_error'
 class Rietveld
 
   def initialize(conf)
+    @logger = Log4r::Logger.new('Rietveld')
     @conf = conf
   end
 
   # Get Network connection
   def get_connection
-    log.info("Get connection to #{@conf[:base_url]}")
+    @logger.info("Get connection to #{@conf[:base_url]}")
     Faraday.new(:url => @conf[:base_url], :ssl => {:verify => false}) do |faraday|
       faraday.request :url_encoded
       faraday.response :logger
@@ -23,7 +25,7 @@ class Rietveld
 
   # Perform search API
   def search(cursor)
-    log.info("Search with #{cursor}")
+    @logger.info("Search with #{cursor}")
     response = get_connection.get '/search', {
         :format     => 'json',
         :keys_only  => 'True',
@@ -39,7 +41,7 @@ class Rietveld
   end
 
   def issue(issue)
-    @log.info("Issue with #{issue}")
+    @logger.info("Issue with #{issue}")
     response = get_connection.get "/api/#{issue}", {
         :messages => true
     }

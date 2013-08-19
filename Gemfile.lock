@@ -9,6 +9,7 @@ GEM
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
+    log4r (1.1.10)
     multipart-post (1.2.0)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
@@ -29,5 +30,6 @@ PLATFORMS
 DEPENDENCIES
   faraday
   faraday_middleware
+  log4r
   rspec
   webmock

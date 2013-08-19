@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'log4r'
 gem 'faraday'
 gem 'faraday_middleware'
 
