@@ -6,9 +6,14 @@
 require 'yaml'
 require 'fileutils'
 require 'optparse'
+require 'logger'
 
 require_relative 'id_list'
 require_relative 'issues'
+
+# Logger
+log = Logger.new(STDOUT)
+log.level = Logger::DEBUG
 
 class RietveldCrawler
 
